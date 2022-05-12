@@ -46,11 +46,25 @@ class Steganography:
 
         return binary_data
 
+    def __binary2text(self, binary_text):
+        text = ""
+        for i in range(0, len(binary_text), 7):
+            text += chr(int(binary_text[i:i+7], 2))
+        return text
+
+    def __return_secret_text_binary(self, binary_image):
+        binary_text = ""
+        for r, b, g in binary_image:
+            binary_text += r[-1]
+            if binary_text[-7:] == self.breakpoint:
+                return binary_text[:-7]
+        return None
+
     def hide(self, text, img_src, img_dest):
         self.src_path = img_src
         self.dest_path = img_dest
         binary_image = self.__img2binary(self.src_path)
-        binary_text = self.__text2binary(self.dest_path)
+        binary_text = self.__text2binary(text)
         binary_image_new = []
 
         if len(binary_image) < len(binary_text) / 7:
@@ -66,10 +80,18 @@ class Steganography:
 
         self.__binary2img(binary_image_new)
 
+    def reveal(self, img_path):
+        binary_image = self.__img2binary(img_path)
+        binary_text = self.__return_secret_text_binary(binary_image)
+        if binary_text is not None:
+            text = self.__binary2text(binary_text)
+            return text
+
 
 if __name__ == '__main__':
     try:
         s = Steganography()
-        s.hide("Agram Uber Alles", "leclerc.png", "secret_leclerc.png")
+        # s.hide("Agram Uber Alles", "leclerc.png", "secret_leclerc.png")
+        s.reveal("secret_leclerc.png")
     except Exception as e:
         print(e)

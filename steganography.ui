@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>750</width>
-    <height>550</height>
+    <width>789</width>
+    <height>639</height>
    </rect>
   </property>
   <property name="font">
@@ -23,12 +23,12 @@
     <rect>
      <x>20</x>
      <y>20</y>
-     <width>711</width>
-     <height>511</height>
+     <width>751</width>
+     <height>601</height>
     </rect>
    </property>
    <property name="currentIndex">
-    <number>1</number>
+    <number>0</number>
    </property>
    <widget class="QWidget" name="tab_hide">
     <attribute name="title">
@@ -39,8 +39,8 @@
       <rect>
        <x>20</x>
        <y>20</y>
-       <width>671</width>
-       <height>341</height>
+       <width>704</width>
+       <height>396</height>
       </rect>
      </property>
      <property name="font">
@@ -48,18 +48,24 @@
        <pointsize>28</pointsize>
       </font>
      </property>
+     <property name="autoFillBackground">
+      <bool>false</bool>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(255, 255, 255);</string>
+     </property>
      <property name="text">
-      <string>Here goes image to hide</string>
+      <string/>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
      </property>
     </widget>
-    <widget class="QPushButton" name="pushButton_hide_browse">
+    <widget class="QPushButton" name="pushButton_hide_destination">
      <property name="geometry">
       <rect>
-       <x>600</x>
-       <y>399</y>
+       <x>640</x>
+       <y>485</y>
        <width>75</width>
        <height>27</height>
       </rect>
@@ -70,15 +76,15 @@
       </font>
      </property>
      <property name="text">
-      <string>Browse</string>
+      <string>Odaberi</string>
      </property>
     </widget>
-    <widget class="QLineEdit" name="lineEdit_hide_browse">
+    <widget class="QLineEdit" name="lineEdit_hide_destination">
      <property name="geometry">
       <rect>
-       <x>30</x>
-       <y>400</y>
-       <width>551</width>
+       <x>140</x>
+       <y>486</y>
+       <width>481</width>
        <height>25</height>
       </rect>
      </property>
@@ -88,11 +94,11 @@
       </font>
      </property>
     </widget>
-    <widget class="QPushButton" name="pushButton_hide">
+    <widget class="QPushButton" name="pushButton_hide_text">
      <property name="geometry">
       <rect>
-       <x>600</x>
-       <y>434</y>
+       <x>640</x>
+       <y>520</y>
        <width>75</width>
        <height>27</height>
       </rect>
@@ -103,15 +109,15 @@
       </font>
      </property>
      <property name="text">
-      <string>Hide</string>
+      <string>Sakrij</string>
      </property>
     </widget>
-    <widget class="QLineEdit" name="lineEdit_hide">
+    <widget class="QLineEdit" name="lineEdit_hide_text">
      <property name="geometry">
       <rect>
-       <x>30</x>
-       <y>435</y>
-       <width>551</width>
+       <x>140</x>
+       <y>521</y>
+       <width>481</width>
        <height>25</height>
       </rect>
      </property>
@@ -119,6 +125,93 @@
       <font>
        <pointsize>10</pointsize>
       </font>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="lineEdit_hide_source">
+     <property name="geometry">
+      <rect>
+       <x>140</x>
+       <y>451</y>
+       <width>481</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pushButton_hide_source">
+     <property name="geometry">
+      <rect>
+       <x>640</x>
+       <y>450</y>
+       <width>75</width>
+       <height>27</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Učitaj</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_hide_source">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>455</y>
+       <width>101</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Izvorna datoteka:</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_hide_destination">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>490</y>
+       <width>121</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Odredišna datoteka:</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_hide_text">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>525</y>
+       <width>111</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Tekst za sakriti:</string>
      </property>
     </widget>
    </widget>
@@ -126,61 +219,13 @@
     <attribute name="title">
      <string>Reveal</string>
     </attribute>
-    <widget class="QPushButton" name="pushButton_reveal_browse">
-     <property name="geometry">
-      <rect>
-       <x>600</x>
-       <y>399</y>
-       <width>75</width>
-       <height>27</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>10</pointsize>
-      </font>
-     </property>
-     <property name="text">
-      <string>Browse</string>
-     </property>
-    </widget>
-    <widget class="QLineEdit" name="lineEdit_reveal">
-     <property name="geometry">
-      <rect>
-       <x>30</x>
-       <y>435</y>
-       <width>551</width>
-       <height>25</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>10</pointsize>
-      </font>
-     </property>
-    </widget>
-    <widget class="QLineEdit" name="lineEdit_reveal_browse">
-     <property name="geometry">
-      <rect>
-       <x>30</x>
-       <y>400</y>
-       <width>551</width>
-       <height>25</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>10</pointsize>
-      </font>
-     </property>
-    </widget>
     <widget class="QLabel" name="label_reveal_image">
      <property name="geometry">
       <rect>
        <x>20</x>
        <y>20</y>
-       <width>671</width>
-       <height>341</height>
+       <width>704</width>
+       <height>396</height>
       </rect>
      </property>
      <property name="font">
@@ -188,18 +233,21 @@
        <pointsize>28</pointsize>
       </font>
      </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(255, 255, 255);</string>
+     </property>
      <property name="text">
-      <string>Here goes image to reveal</string>
+      <string/>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
      </property>
     </widget>
-    <widget class="QPushButton" name="pushButton_reveal">
+    <widget class="QPushButton" name="pushButton_reveal_source">
      <property name="geometry">
       <rect>
-       <x>600</x>
-       <y>434</y>
+       <x>640</x>
+       <y>465</y>
        <width>75</width>
        <height>27</height>
       </rect>
@@ -210,7 +258,91 @@
       </font>
      </property>
      <property name="text">
-      <string>Reveal</string>
+      <string>Učitaj</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_reveal_source">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>470</y>
+       <width>121</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Izvorišna datoteka:</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pushButton_reveal_text">
+     <property name="geometry">
+      <rect>
+       <x>640</x>
+       <y>500</y>
+       <width>75</width>
+       <height>27</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Otkrij</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="lineEdit_reveal_text">
+     <property name="geometry">
+      <rect>
+       <x>140</x>
+       <y>501</y>
+       <width>481</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_reveal_text">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>505</y>
+       <width>111</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Tekst za sakriti:</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="lineEdit_reveal_source">
+     <property name="geometry">
+      <rect>
+       <x>140</x>
+       <y>466</y>
+       <width>481</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+      </font>
      </property>
     </widget>
    </widget>

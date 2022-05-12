@@ -1,10 +1,11 @@
-from PyQt5 import uic
-from PyQt5.QtWidgets import QApplication, QFileDialog
-from PyQt5 import QtGui
-from stegano import lsb
-
 import os
 import sys
+
+from PyQt5 import uic
+from PyQt5.QtWidgets import QApplication, QFileDialog, QMessageBox
+from PyQt5 import QtGui
+
+from steganography import Steganography
 
 
 # Load ui files
@@ -16,30 +17,64 @@ class MainWindow(baseMainWindow, formMainWindow):
     def __init__(self):
         super(baseMainWindow, self).__init__()
         self.setupUi(self)
+        self.steganography = Steganography()
 
-        self.img_path = None
+        self.pushButton_hide_source.clicked.connect(self.browse_hide_source)
+        self.pushButton_hide_destination.clicked.connect(self.browse_hide_destination)
+        self.pushButton_hide_text.clicked.connect(self.hide)
+        self.pushButton_reveal_source.clicked.connect(self.browse_reveal_source)
+        self.pushButton_reveal_text.clicked.connect(self.reveal)
 
-        self.pushButton_hide_browse.clicked.connect(self.browse_hide)
-        self.pushButton_hide.clicked.connect(self.hide)
-        self.pushButton_reveal_browse.clicked.connect(self.browse_reveal)
-        self.pushButton_reveal.clicked.connect(self.reveal)
+    def browse_hide_source(self):
+        img_path, _ = QFileDialog.getOpenFileName(self, "Odaberi sliku")
+        self.lineEdit_hide_source.setText(img_path)
+        self.label_hide_image.setPixmap(QtGui.QPixmap(img_path))
 
-    def browse_hide(self):
-        self.img_path, _ = QFileDialog.getOpenFileName(self, "QFileDialog.getOpenFileName()")
-        self.lineEdit_hide_browse.setText(self.img_path)
-        self.label_hide_image.setPixmap(QtGui.QPixmap(self.img_path))
+    def browse_hide_destination(self):
+        # Dohvati odredišni direktorij
+        dest_folder = QFileDialog.getExistingDirectory(self, "Odaberi odredišni direktorij!")
+
+        # Provjeri da li postoji odabrana izvorna datoteka
+        # Ako da uzmi njeno ime bez putanje i ekstenzije
+        source_file = ""
+        if os.path.exists(self.lineEdit_hide_source.text()):
+            source_file = os.path.basename(self.lineEdit_hide_source.text())
+            source_file = os.path.splitext(source_file)[0]
+
+        self.lineEdit_hide_destination.setText(os.path.join(dest_folder, source_file + "_s_tajnom.png"))
+
+    def browse_reveal_source(self):
+        img_path, _ = QFileDialog.getOpenFileName(self, "Odaberi sliku")
+        self.lineEdit_reveal_source.setText(img_path)
+        self.label_reveal_image.setPixmap(QtGui.QPixmap(img_path))
 
     def hide(self):
-        secret = lsb.hide(self.img_path, self.lineEdit_hide.text())
-        secret.save("secret.png")
+        # Provjera da li postoji odredišni direktorij
+        if os.path.exists(os.path.dirname(self.lineEdit_hide_destination.text())):
 
-    def browse_reveal(self):
-        self.img_path, _ = QFileDialog.getOpenFileName(self, "QFileDialog.getOpenFileName()")
-        self.lineEdit_reveal_browse.setText(self.img_path)
-        self.label_reveal_image.setPixmap(QtGui.QPixmap(self.img_path))
+            message_box = QMessageBox()
+            message_box.setWindowTitle("Obavijest")
+            try:
+                self.steganography.hide(self.lineEdit_hide_text.text(),
+                                        self.lineEdit_hide_source.text(),
+                                        self.lineEdit_hide_destination.text())
+                message_box.setText("Uspješno je kreirana slika sa skrivenom porukom!")
+            except Exception as e:
+                message_box.setText("Dogodio se problem: " + e.args[0])
+            finally:
+                message_box.exec_()
 
     def reveal(self):
-        self.lineEdit_reveal.setText(lsb.reveal(self.img_path))
+        message_box = QMessageBox()
+        message_box.setWindowTitle("Obavijest")
+        try:
+            text = self.steganography.reveal(self.lineEdit_reveal_source.text())
+            self.lineEdit_reveal_text.setText(text if text is not None else "")
+            message_box.setText("Uspješno je pročitana skrivena poruka sa slike!")
+        except Exception as e:
+            message_box.setText("Dogodio se problem: " + e.args[0])
+        finally:
+            message_box.exec_()
 
 
 if __name__ == "__main__":
