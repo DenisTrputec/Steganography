@@ -34,13 +34,8 @@ class MainWindow(baseMainWindow, formMainWindow):
         # Dohvati odredišni direktorij
         dest_folder = QFileDialog.getExistingDirectory(self, "Odaberi odredišni direktorij!")
 
-        # Provjeri da li postoji odabrana izvorna datoteka
-        # Ako da uzmi njeno ime bez putanje i ekstenzije
-        source_file = ""
-        if os.path.exists(self.lineEdit_hide_source.text()):
-            source_file = os.path.basename(self.lineEdit_hide_source.text())
-            source_file = os.path.splitext(source_file)[0]
-
+        # Uzmi ime odabrane slike bez putanje i ekstenzije
+        source_file = os.path.splitext(self.lineEdit_hide_source.text())[0]
         self.lineEdit_hide_destination.setText(os.path.join(dest_folder, source_file + "_s_tajnom.png"))
 
     def browse_reveal_source(self):
@@ -49,20 +44,17 @@ class MainWindow(baseMainWindow, formMainWindow):
         self.label_reveal_image.setPixmap(QtGui.QPixmap(img_path))
 
     def hide(self):
-        # Provjera da li postoji odredišni direktorij
-        if os.path.exists(os.path.dirname(self.lineEdit_hide_destination.text())):
-
-            message_box = QMessageBox()
-            message_box.setWindowTitle("Obavijest")
-            try:
-                self.steganography.hide(self.lineEdit_hide_text.text(),
-                                        self.lineEdit_hide_source.text(),
-                                        self.lineEdit_hide_destination.text())
-                message_box.setText("Uspješno je kreirana slika sa skrivenom porukom!")
-            except Exception as e:
-                message_box.setText("Dogodio se problem: " + e.args[0])
-            finally:
-                message_box.exec_()
+        message_box = QMessageBox()
+        message_box.setWindowTitle("Obavijest")
+        try:
+            self.steganography.hide(self.lineEdit_hide_text.text(),
+                                    self.lineEdit_hide_source.text(),
+                                    self.lineEdit_hide_destination.text())
+            message_box.setText("Uspješno je kreirana slika sa skrivenom porukom!")
+        except Exception as e:
+            message_box.setText("Dogodio se problem: " + e.args[0])
+        finally:
+            message_box.exec_()
 
     def reveal(self):
         message_box = QMessageBox()
